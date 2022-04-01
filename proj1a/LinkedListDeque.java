@@ -1,92 +1,116 @@
-/** Performs some basic linked list tests. */
-public class LinkedListDequeTest {
-	
-	/* Utility method for printing out empty checks. */
-	public static boolean checkEmpty(boolean expected, boolean actual) {
-		if (expected != actual) {
-			System.out.println("isEmpty() returned " + actual + ", but expected: " + expected);
-			return false;
-		}
-		return true;
-	}
+public class LinkedListDeque<T> {
 
-	/* Utility method for printing out empty checks. */
-	public static boolean checkSize(int expected, int actual) {
-		if (expected != actual) {
-			System.out.println("size() returned " + actual + ", but expected: " + expected);
-			return false;
-		}
-		return true;
-	}
+    private int size;
+    private IntNode sentinel;
 
-	/* Prints a nice message based on whether a test passed. 
-	 * The \n means newline. */
-	public static void printTestStatus(boolean passed) {
-		if (passed) {
-			System.out.println("Test passed!\n");
-		} else {
-			System.out.println("Test failed!\n");
-		}
-	}
+    public class IntNode{
+        public T item;
+        public IntNode prev;
+        public IntNode next;
 
-	/** Adds a few things to the list, checking isEmpty() and size() are correct, 
-	  * finally printing the results. 
-	  *
-	  * && is the "and" operation. */
-	public static void addIsEmptySizeTest() {
-		System.out.println("Running add/isEmpty/Size test.");
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-		/*
-		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
+        public IntNode(IntNode p, T i, IntNode n){
+            prev = p;
+            item = i;
+            next = n;
+        }
 
-		boolean passed = checkEmpty(true, lld1.isEmpty());
+    }
 
-		lld1.addFirst("front");
-		
-		// The && operator is the same as "and" in Python.
-		// It's a binary operator that returns true if both arguments true, and false otherwise.
-		passed = checkSize(1, lld1.size()) && passed;
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+    public LinkedListDeque(){
+        size = 0;
+        sentinel = new IntNode(null,null, null);
+        sentinel.prev = sentinel;
+        sentinel.next = sentinel;
+    }
 
-		lld1.addLast("middle");
-		passed = checkSize(2, lld1.size()) && passed;
+    public void addFirst(T item){
+        IntNode p = sentinel.next;
+        IntNode temp = new IntNode(sentinel , item, p);
+        sentinel.next = temp;
+        p.prev = temp;
 
-		lld1.addLast("back");
-		passed = checkSize(3, lld1.size()) && passed;
+        size += 1;
+    }
 
-		System.out.println("Printing out deque: ");
-		lld1.printDeque();
+    public void addLast(T item){
+        IntNode p = sentinel.prev;
+        IntNode temp = new IntNode(p, item, sentinel);
+        sentinel.prev = temp;
+        p.next = temp;
 
-		printTestStatus(passed);
-		*/
-	}
+        size += 1;
+    }
 
-	/** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
-	public static void addRemoveTest() {
+    public boolean isEmpty() {
+        return (sentinel.next == sentinel);
+    }
 
-		System.out.println("Running add/remove test.");
+    public int size(){
+        return size;
+    }
 
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-		/*
-		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-		// should be empty 
-		boolean passed = checkEmpty(true, lld1.isEmpty());
+    public void printDeque(){
+        IntNode p = sentinel.next;
+        int i = 0;
+        while(i < size){
+           if(i == size-1) System.out.println(p.item);
+           System.out.print(p.item + " ");
+           i += 1;
+        }
+    }
 
-		lld1.addFirst(10);
-		// should not be empty 
-		passed = checkEmpty(false, lld1.isEmpty()) && passed;
+    public T removeFirst(){
+        IntNode temp = sentinel.next;
+        if(temp == sentinel) return null;
+        sentinel.next = temp.next;
+        temp.next.prev = sentinel;
+        return temp.item;
+    }
 
-		lld1.removeFirst();
-		// should be empty 
-		passed = checkEmpty(true, lld1.isEmpty()) && passed;
+    public T removeLast(){
+        IntNode temp = sentinel.prev;
+        if(temp == sentinel) return null;
+        sentinel.prev =temp.prev;
+        temp.prev.next = sentinel;
+        return temp.item;
+    }
 
-		printTestStatus(passed);
-		*/
-	}
+    public T get(int index){
+        if(index > size) return null;
+        IntNode temp = sentinel;
+        while(index > 0){
+            temp = temp.next;
+            index -= 1;
+        }
+        return temp.item;
+    }
 
-	public static void main(String[] args) {
-		System.out.println("Running tests.\n");
-		addIsEmptySizeTest();
-		addRemoveTest();
-	}
-} 
+
+    public LinkedListDeque(LinkedListDeque L){
+        size = L.size;
+        sentinel = new IntNode(null, null, null);
+        IntNode pp = L.sentinel;
+        IntNode pn = L.sentinel.next;
+        IntNode qp = sentinel;
+        IntNode qn = sentinel.next;
+        int i = 0;
+        while(i < L.size()){
+            qn = new IntNode(qp, pn.item, null);
+            pp = pn;
+            pn = pp.next;
+            qp = qn;
+            qn = qp.next;
+            i++;
+        }
+        qn = sentinel;
+        sentinel.prev = qp;
+    }
+
+    public T getRecursive(int index){
+        if(size < index) return null;
+        if(index == 1) return this.sentinel.next.item;
+        return this.getRecursive(index-1);
+    }
+
+
+}
