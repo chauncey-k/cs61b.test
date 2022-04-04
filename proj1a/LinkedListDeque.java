@@ -125,7 +125,7 @@ public class LinkedListDeque<T> {
     }
 
     private T getRecursive(LinkedListDeque<T>.IntNode node, int i) {
-        if (i == 1) {
+        if (i == 0) {
             return node.item;
         }
         return getRecursive(node.next, i - 1);
