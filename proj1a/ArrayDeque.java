@@ -2,11 +2,10 @@ public class ArrayDeque<T> {
     private int size;
     private T[] array;
 
-    private T[] resize(int newSize) {
+    private void resize(int newSize) {
         T[] resizedArray = (T[]) new Object[newSize];
         System.arraycopy(array, 0, resizedArray, 0, size);
         array = resizedArray;
-        return array;
     }
 
     private void testUsage() {
@@ -17,27 +16,24 @@ public class ArrayDeque<T> {
 
     public void addFirst(T item) {
         if (size == array.length) {
-            array = resize(size * 2);
+            resize(size * 2);
         }
-        if (size == 0) {
-            array[0] = item;
-            ++size;
-        } else {
+        if (size != 0) {
             int i = size - 1;
             while (i > 0) {
                 array[i + 1] = array[i];
                 --i;
             }
-            array[0] = item;
-            ++size;
         }
+        array[0] = item;
+        ++size;
 
         this.testUsage();
     }
 
     public void addLast(T item) {
         if (size == array.length) {
-            array = resize(size * 2);
+            resize(size * 2);
         }
         array[size] = item;
         ++size;
