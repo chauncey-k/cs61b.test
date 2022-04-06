@@ -28,7 +28,7 @@ public class ArrayDeque<T> {
         array[0] = item;
         ++size;
 
-        this.testUsage();
+        testUsage();
     }
 
     public void addLast(T item) {
@@ -38,7 +38,7 @@ public class ArrayDeque<T> {
         array[size] = item;
         ++size;
 
-        this.testUsage();
+        testUsage();
     }
 
     public boolean isEmpty() {
@@ -71,27 +71,27 @@ public class ArrayDeque<T> {
         }
         --size;
 
-        this.testUsage();
+        testUsage();
         return temp;
     }
 
     public T removeLast() {
-        if (array[size - 1] == null) {
+        if (array[0] == null) {
             return null;
         }
         T temp = array[size - 1];
         array[size - 1] = null;
         --size;
 
-        this.testUsage();
+        testUsage();
         return temp;
     }
 
     public T get(int index) {
-        if (index >= size) {
+        if (index >= size || index < 0) {
             return null;
         }
-        return array[index];
+        return array[index - 1];
     }
 
     public ArrayDeque() {
