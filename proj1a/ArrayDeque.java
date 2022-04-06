@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
 
     private void testUsage() {
         if (size / array.length <= 0.25) {
-            size /= 4;
+            size /= 2;
         }
     }
 
@@ -69,6 +69,7 @@ public class ArrayDeque<T> {
         while (i < size) {
             array[i - 1] = array[i];
         }
+        array[size] = null;
         --size;
 
         testUsage();
