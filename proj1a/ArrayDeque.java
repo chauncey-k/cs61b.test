@@ -8,6 +8,12 @@ public class ArrayDeque<T> {
         array = resizedArray;
     }
 
+    private void testUsage() {
+        if (size / array.length <= 0.25) {
+            size /= 4;
+        }
+    }
+
     public void addFirst(T item) {
         if (size == array.length) {
             resize(size * 2);
@@ -22,6 +28,7 @@ public class ArrayDeque<T> {
         array[0] = item;
         ++size;
 
+        testUsage();
     }
 
     public void addLast(T item) {
@@ -31,6 +38,7 @@ public class ArrayDeque<T> {
         array[size] = item;
         ++size;
 
+        testUsage();
     }
 
     public boolean isEmpty() {
@@ -63,6 +71,7 @@ public class ArrayDeque<T> {
         }
         --size;
 
+        testUsage();
         return temp;
     }
 
@@ -74,6 +83,7 @@ public class ArrayDeque<T> {
         array[size - 1] = null;
         --size;
 
+        testUsage();
         return temp;
     }
 
