@@ -2,13 +2,13 @@ public class ArrayDeque<T> {
     private int size;
     private T[] array;
 
-    private void resize(int newSize) {
+    public void resize(int newSize) {
         T[] resizedArray = (T[]) new Object[newSize];
         System.arraycopy(array, 0, resizedArray, 0, size);
         array = resizedArray;
     }
 
-    private void testUsage() {
+    public void testUsage() {
         if (size / array.length <= 0.25) {
             size /= 2;
         }
