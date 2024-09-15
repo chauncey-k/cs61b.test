@@ -15,12 +15,13 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
+        int i = 0;
         if (size == array.length) {
             resize(size * 2);
         }
         if (size != 0) {
-            int i = size - 1;
-            while (i > 0) {
+            i = size - 1;
+            while (i >= 0) {
                 array[i + 1] = array[i];
                 --i;
             }
@@ -92,7 +93,7 @@ public class ArrayDeque<T> {
         if (index >= size || index < 0) {
             return null;
         }
-        return array[index - 1];
+        return array[index];
     }
 
     public ArrayDeque() {
