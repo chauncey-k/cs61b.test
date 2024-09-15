@@ -1,6 +1,6 @@
 public class ArrayDeque<T> {
     private int size;
-    private T[] array = ;
+    private T[] array;
 
     private void resize(int newSize) {
         if (newSize < 8) {
