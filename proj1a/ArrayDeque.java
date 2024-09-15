@@ -4,9 +4,9 @@ public class ArrayDeque<T> {
 
     private void resize(int newSize) {
         if (newSize < 8) {
-            mysize = 8;
+            T[] resizedArray = (T[]) new Object[8];
         }
-        T[] resizedArray = (T[]) new Object[mysize];
+        T[] resizedArray = (T[]) new Object[newSize];
         System.arraycopy(array, 0, resizedArray, 0, size);
         array = resizedArray;
     }
@@ -72,6 +72,7 @@ public class ArrayDeque<T> {
         int i = 1;
         while (i < size) {
             array[i - 1] = array[i];
+            ++i;
         }
         array[size] = null;
         --size;
