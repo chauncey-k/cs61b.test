@@ -35,7 +35,7 @@ public class ArrayDeque<T> {
                         resizedArray, array.length - (nextFirst + 1), nextLast);
             }
             nextFirst = newSize - 1;
-            nextLast = size;
+            nextLast = size % newSize;
         }
         array = resizedArray;
     }
