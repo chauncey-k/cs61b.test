@@ -20,17 +20,25 @@ public class ArrayDeque<T> {
             for (int j = 0; j < nextLast; j += 1) {
                 resizedArray[j] = array[j];
             }
+            if (nextFirst == array.length - 1) {
+                nextFirst = newSize - 1 - size;
+            }
             nextFirst = newSize - 1 - (size - 1 - nextFirst);
         } else {
             if (nextLast > nextFirst) {
                 System.arraycopy(array, nextFirst + 1, resizedArray, 0, size);
             } else {
-                System.arraycopy(array, nextFirst + 1,
-                        resizedArray, 0, array.length - (nextFirst + 1));
-                System.arraycopy(array, 0,
-                        resizedArray, array.length - (nextFirst + 1), nextLast);
+                if (nextFirst == array.length) {
+                    System.arraycopy(array, 0,
+                            resizedArray, 0, size);
+                } else {
+                    System.arraycopy(array, (nextFirst + 1) % array.length,
+                            resizedArray, 0, array.length - (nextFirst + 1));
+                    System.arraycopy(array, 0,
+                            resizedArray, array.length - (nextFirst + 1), nextLast);
+                }
             }
-            nextFirst = resizedArray.length;
+            nextFirst = resizedArray.length - 1;
             nextLast = size;
         }
         array = resizedArray;
@@ -109,7 +117,7 @@ public class ArrayDeque<T> {
         }
         T temp;
         if (nextLast == 0) {
-            temp = array[size - 1];
+            temp = array[array.length - 1];
         } else {
             temp = array[nextLast - 1];
         }
