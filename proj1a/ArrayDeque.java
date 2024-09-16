@@ -25,14 +25,14 @@ public class ArrayDeque<T> {
 
     private void testUsage() {
         if (array.length >= 16) {
-            if (size * 1.0 / array.length < 0.25){
+            if (size * 1.0 / array.length < 0.25) {
                 resize(size / 4);
             }
         }
     }
 
     public void addFirst(T item) {
-        if (nextFirst + 1 == nextLast) {
+        if (size == array.length) {
             resize(size * 2);
         }
         array[nextFirst] = item;
@@ -46,7 +46,7 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T item) {
-        if (nextFirst + 1 == nextLast) {
+        if (size == array.length) {
             resize(size * 2);
         }
         array[nextLast] = item;
@@ -69,9 +69,9 @@ public class ArrayDeque<T> {
         int i = 0;
         while (i < size) {
             if (i == size - 1) {
-                System.out.println(array[i]);
+                System.out.println(array[nextLast - 1]);
             }
-            System.out.print(array[i] + " ");
+            System.out.print(array[nextFirst + 1 + i] + " ");
             i += 1;
         }
     }
@@ -116,7 +116,7 @@ public class ArrayDeque<T> {
         size = 0;
         array = (T[]) new Object[8];
         nextFirst = 0;
-        nextLast = 7;
+        nextLast = 1;
     }
 
 }
