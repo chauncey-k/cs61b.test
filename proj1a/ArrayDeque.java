@@ -12,19 +12,15 @@ public class ArrayDeque<T> {
     private int nextLast;
 
     private void resize(int newSize) {
-        int mySize = newSize;
-        if (newSize < 8) {
-            mySize = 8;
-        }
-        T[] resizedArray = (T[]) new Object[mySize];
-        if (mySize > size) {
+        T[] resizedArray = (T[]) new Object[newSize];
+        if (newSize > size) {
             for (int i = (nextFirst + 1) % array.length; i < size; i += 1) {
-                resizedArray[mySize - 1 - (size - 1 - i)] = array[i];
+                resizedArray[newSize - 1 - (size - 1 - i)] = array[i];
             }
             for (int j = 0; j < nextLast; j += 1) {
                 resizedArray[j] = array[j];
             }
-            nextFirst = mySize - 1 - (size - 1 - nextFirst);
+            nextFirst = newSize - 1 - (size - 1 - nextFirst);
         } else {
             if (nextLast > nextFirst) {
                 System.arraycopy(array, nextFirst + 1, resizedArray, 0, size);
@@ -43,7 +39,7 @@ public class ArrayDeque<T> {
     private void testUsage() {
         if (array.length >= 16) {
             if (size * 1.0 / array.length < 0.25) {
-                resize(size / 4);
+                resize(size / 2);
             }
         }
     }
@@ -113,7 +109,7 @@ public class ArrayDeque<T> {
         }
         T temp;
         if (nextLast == 0) {
-            temp = array[array.length - 1];
+            temp = array[size - 1];
         } else {
             temp = array[nextLast - 1];
         }
