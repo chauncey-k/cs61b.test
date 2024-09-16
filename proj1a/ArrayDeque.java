@@ -22,8 +22,9 @@ public class ArrayDeque<T> {
             }
             if (nextFirst == array.length - 1) {
                 nextFirst = newSize - 1 - size;
+            } else {
+                nextFirst = newSize - 1 - (size - 1 - nextFirst);
             }
-            nextFirst = newSize - 1 - (size - 1 - nextFirst);
         } else {
             if (nextLast > nextFirst || nextLast == 0 || nextFirst == array.length - 1) {
                 System.arraycopy(array, nextFirst + 1, resizedArray, 0, size);
@@ -97,6 +98,7 @@ public class ArrayDeque<T> {
             return null;
         }
         T temp = array[(nextFirst + 1) % array.length];
+        array[(nextFirst + 1) % array.length] = null;
         nextFirst += 1;
         if (nextFirst >= array.length) {
             nextFirst -= array.length;
@@ -113,8 +115,10 @@ public class ArrayDeque<T> {
         T temp;
         if (nextLast == 0) {
             temp = array[array.length - 1];
+            array[array.length - 1] = null;
         } else {
             temp = array[nextLast - 1];
+            array[nextLast - 1] = null;
         }
         nextLast -= 1;
         if (nextLast < 0) {
