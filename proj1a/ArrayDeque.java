@@ -85,6 +85,7 @@ public class ArrayDeque<T> {
         if (nextFirst >= array.length) {
             nextFirst -= array.length;
         }
+        size -= 1;
         testUsage();
         return temp;
     }
@@ -96,14 +97,14 @@ public class ArrayDeque<T> {
         T temp;
         if (nextLast == 0) {
             temp = array[nextLast - 1 + array.length];
-        }
-        else {
+        } else {
             temp = array[nextLast - 1];
         }
         nextLast -= 1;
         if (nextLast < 0) {
             nextLast += array.length;
         }
+        size -= 1;
         testUsage();
         return temp;
     }
