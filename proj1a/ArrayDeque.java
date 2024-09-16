@@ -43,7 +43,7 @@ public class ArrayDeque<T> {
     private void testUsage() {
         if (array.length >= 16) {
             if (size * 1.0 / array.length < 0.25) {
-                resize(size / 2);
+                resize(array.length / 2);
             }
         }
     }
