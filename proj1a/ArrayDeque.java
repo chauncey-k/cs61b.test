@@ -27,7 +27,7 @@ public class ArrayDeque<T> {
             }
         } else {
             if (nextLast > nextFirst || nextLast == 0 || nextFirst == array.length - 1) {
-                System.arraycopy(array, nextFirst + 1, resizedArray, 0, size);
+                System.arraycopy(array, (nextFirst + 1) % array.length, resizedArray, 0, size);
             } else {
                 System.arraycopy(array, nextFirst + 1,
                         resizedArray, 0, array.length - (nextFirst + 1));
