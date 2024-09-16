@@ -59,7 +59,7 @@ public class ArrayDeque<T> {
         array[nextFirst] = item;
         nextFirst -= 1;
         if (nextFirst < 0) {
-            nextFirst += array.length;
+            nextFirst = array.length - 1;
         }
         size += 1;
 
@@ -123,7 +123,7 @@ public class ArrayDeque<T> {
         }
         nextLast -= 1;
         if (nextLast < 0) {
-            nextLast += array.length;
+            nextLast = array.length - 1;
         }
         size -= 1;
         testUsage();
