@@ -77,30 +77,33 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if (size <= 1) {
+        if (size == 0) {
             return null;
         }
-        T temp = array[0];
-        int i = 1;
-        while (i < size) {
-            array[i - 1] = array[i];
-            i += 1;
+        T temp = array[(nextFirst + 1) % array.length];
+        nextFirst += 1;
+        if (nextFirst >= array.length) {
+            nextFirst -= array.length;
         }
-        array[size] = null;
-        size -= 1;
-
         testUsage();
         return temp;
     }
 
     public T removeLast() {
-        if (size <= 1) {
+        if (size == 0) {
             return null;
         }
-        T temp = array[size - 1];
-        array[size - 1] = null;
-        size -= 1;
-
+        T temp;
+        if (nextLast == 0) {
+            temp = array[nextLast - 1 + array.length];
+        }
+        else {
+            temp = array[nextLast - 1];
+        }
+        nextLast -= 1;
+        if (nextLast < 0) {
+            nextLast += array.length;
+        }
         testUsage();
         return temp;
     }
