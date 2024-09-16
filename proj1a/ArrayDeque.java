@@ -25,20 +25,15 @@ public class ArrayDeque<T> {
             }
             nextFirst = newSize - 1 - (size - 1 - nextFirst);
         } else {
-            if (nextLast > nextFirst) {
+            if (nextLast > nextFirst || nextLast == 0 || nextFirst == array.length - 1) {
                 System.arraycopy(array, nextFirst + 1, resizedArray, 0, size);
             } else {
-                if (nextFirst == array.length) {
-                    System.arraycopy(array, 0,
-                            resizedArray, 0, size);
-                } else {
-                    System.arraycopy(array, (nextFirst + 1) % array.length,
-                            resizedArray, 0, array.length - (nextFirst + 1));
-                    System.arraycopy(array, 0,
-                            resizedArray, array.length - (nextFirst + 1), nextLast);
-                }
+                System.arraycopy(array, nextFirst + 1,
+                        resizedArray, 0, array.length - (nextFirst + 1));
+                System.arraycopy(array, 0,
+                        resizedArray, array.length - (nextFirst + 1), nextLast);
             }
-            nextFirst = resizedArray.length - 1;
+            nextFirst = newSize - 1;
             nextLast = size;
         }
         array = resizedArray;
