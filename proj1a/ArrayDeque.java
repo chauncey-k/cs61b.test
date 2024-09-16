@@ -12,21 +12,27 @@ public class ArrayDeque<T> {
     private int nextLast;
 
     private void resize(int newSize) {
-        T[] resizedArray = (T[]) new Object[newSize];
-        if (newSize > size) {
+        int mySize = newSize;
+        if (newSize < 8) {
+            mySize = 8;
+        }
+        T[] resizedArray = (T[]) new Object[mySize];
+        if (mySize > size) {
             for (int i = (nextFirst + 1) % array.length; i < size; i += 1) {
-                resizedArray[newSize - 1 - (size - 1 - i)] = array[i];
+                resizedArray[mySize - 1 - (size - 1 - i)] = array[i];
             }
             for (int j = 0; j < nextLast; j += 1) {
                 resizedArray[j] = array[j];
             }
-            nextFirst = newSize - 1 - (size - 1 - nextFirst);
+            nextFirst = mySize - 1 - (size - 1 - nextFirst);
         } else {
             if (nextLast > nextFirst) {
                 System.arraycopy(array, nextFirst + 1, resizedArray, 0, size);
             } else {
-                System.arraycopy(array, nextFirst + 1, resizedArray, 0, array.length - (nextFirst + 1));
-                System.arraycopy(array, 0, resizedArray, array.length - (nextFirst + 1), nextLast);
+                System.arraycopy(array, nextFirst + 1,
+                        resizedArray, 0, array.length - (nextFirst + 1));
+                System.arraycopy(array, 0,
+                        resizedArray, array.length - (nextFirst + 1), nextLast);
             }
             nextFirst = resizedArray.length;
             nextLast = size;
@@ -37,7 +43,7 @@ public class ArrayDeque<T> {
     private void testUsage() {
         if (array.length >= 16) {
             if (size * 1.0 / array.length < 0.25) {
-                resize(size / 2);
+                resize(size / 4);
             }
         }
     }
@@ -107,7 +113,7 @@ public class ArrayDeque<T> {
         }
         T temp;
         if (nextLast == 0) {
-            temp = array[nextLast - 1 + array.length];
+            temp = array[array.length - 1];
         } else {
             temp = array[nextLast - 1];
         }
