@@ -29,7 +29,7 @@ public class TestPalindrome {
 
     @Test
     public void testNewIsPalindrome() {
-        CharacterComparator cc = new OffByOne<>();
+        CharacterComparator cc = new OffByOne();
         assertTrue(palindrome.isPalindrome("flake", cc));
     }
 }
