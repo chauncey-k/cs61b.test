@@ -26,7 +26,6 @@ public class ArrayRingBuffer<T> extends synthesizer.AbstractBoundedQueue<T> {
      * covered Monday.
      */
     public void enqueue(T x) {
-        // TODO: Enqueue the item. Don't forget to increase fillCount and update last.
         if (fillCount == capacity) {
             throw new RuntimeException("Ring buffer overflow");
         } else {
@@ -61,14 +60,6 @@ public class ArrayRingBuffer<T> extends synthesizer.AbstractBoundedQueue<T> {
         } else {
             return rb[first];
         }
-    }
-
-    public boolean isEmpty() {
-        return fillCount == 0;
-    }
-
-    public boolean isFull() {
-        return fillCount == capacity;
     }
 
     @Override
